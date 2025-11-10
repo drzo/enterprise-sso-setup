@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata"
+                     entityID="{{ENTITY_ID}}">
+    <md:SPSSODescriptor
+        AuthnRequestsSigned="{{SIGN_REQUESTS}}"
+        WantAssertionsSigned="{{SIGN_ASSERTIONS}}"
+        protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+        
+        <!-- NameID Format -->
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</md:NameIDFormat>
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:persistent</md:NameIDFormat>
+        <md:NameIDFormat>urn:oasis:names:tc:SAML:2.0:nameid-format:transient</md:NameIDFormat>
+        
+        <!-- Assertion Consumer Service (ACS) -->
+        <md:AssertionConsumerService
+            Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+            Location="{{ACS_URL}}"
+            index="0"
+            isDefault="true"/>
+        
+        <md:AssertionConsumerService
+            Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+            Location="{{ACS_URL}}"
+            index="1"/>
+        
+        <!-- Single Logout Service (optional) -->
+        {{#if SLO_URL}}
+        <md:SingleLogoutService
+            Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+            Location="{{SLO_URL}}"/>
+        
+        <md:SingleLogoutService
+            Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+            Location="{{SLO_URL}}"/>
+        {{/if}}
+        
+        <!-- Encryption Certificate (optional) -->
+        {{#if ENCRYPTION_CERT}}
+        <md:KeyDescriptor use="encryption">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>{{ENCRYPTION_CERT}}</ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </md:KeyDescriptor>
+        {{/if}}
+        
+        <!-- Signing Certificate (optional) -->
+        {{#if SIGNING_CERT}}
+        <md:KeyDescriptor use="signing">
+            <ds:KeyInfo xmlns:ds="http://www.w3.org/2000/09/xmldsig#">
+                <ds:X509Data>
+                    <ds:X509Certificate>{{SIGNING_CERT}}</ds:X509Certificate>
+                </ds:X509Data>
+            </ds:KeyInfo>
+        </md:KeyDescriptor>
+        {{/if}}
+        
+    </md:SPSSODescriptor>
+    
+    <!-- Organization Information (optional) -->
+    {{#if ORG_NAME}}
+    <md:Organization>
+        <md:OrganizationName xml:lang="en">{{ORG_NAME}}</md:OrganizationName>
+        <md:OrganizationDisplayName xml:lang="en">{{ORG_DISPLAY_NAME}}</md:OrganizationDisplayName>
+        <md:OrganizationURL xml:lang="en">{{ORG_URL}}</md:OrganizationURL>
+    </md:Organization>
+    {{/if}}
+    
+    <!-- Contact Information (optional) -->
+    {{#if CONTACT_EMAIL}}
+    <md:ContactPerson contactType="technical">
+        <md:EmailAddress>{{CONTACT_EMAIL}}</md:EmailAddress>
+    </md:ContactPerson>
+    {{/if}}
+    
+</md:EntityDescriptor>

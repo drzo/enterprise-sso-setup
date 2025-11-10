@@ -1,0 +1,40 @@
+{
+  "provider": "okta",
+  "protocol": "saml",
+  "okta_domain": "dev-123456.okta.com",
+  "entity_id": "https://example.com/saml/metadata",
+  "acs_url": "https://example.com/saml/acs",
+  "slo_url": "https://example.com/saml/slo",
+  "idp_metadata_url": "https://dev-123456.okta.com/app/exkabc123def456/sso/saml/metadata",
+  "idp_entity_id": "http://www.okta.com/exkabc123def456",
+  "idp_sso_url": "https://dev-123456.okta.com/app/exkabc123def456/sso/saml",
+  "idp_slo_url": "https://dev-123456.okta.com/app/exkabc123def456/slo/saml",
+  "certificate": {
+    "use_embedded": true,
+    "file_path": "./certs/idp-certificate.pem"
+  },
+  "signature": {
+    "sign_requests": true,
+    "validate_responses": true,
+    "algorithm": "http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"
+  },
+  "attribute_mapping": {
+    "email": "user.email",
+    "firstName": "user.firstName",
+    "lastName": "user.lastName",
+    "displayName": "user.displayName",
+    "groups": "user.groups"
+  },
+  "security": {
+    "want_assertions_signed": true,
+    "want_messages_signed": true,
+    "reject_unsolicited_responses": true,
+    "name_id_format": "urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress"
+  },
+  "advanced": {
+    "authn_context": "urn:oasis:names:tc:SAML:2.0:ac:classes:PasswordProtectedTransport",
+    "force_authn": false,
+    "is_passive": false,
+    "allow_create": true
+  }
+}

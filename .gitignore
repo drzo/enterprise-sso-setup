@@ -1,0 +1,52 @@
+# Output directory
+output/
+
+# Generated certificates
+*.key
+*.crt
+*.pem
+*.csr
+*.p12
+*.pfx
+
+# Secrets and credentials
+*secret*
+*password*
+client_secret.txt
+
+# Configuration files with real credentials
+*-config.json
+!*-example.json
+!*-template.json
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Node modules (if any tooling is added)
+node_modules/
+
+# Python (if any tooling is added)
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+
+# Environment files
+.env
+.env.local
+.env.*.local
